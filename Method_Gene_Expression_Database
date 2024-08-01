@@ -1,0 +1,128 @@
+Methods
+Database Creation and Management
+We developed a relational database to manage gene expression data using MySQL. The database schema consists of three primary tables: Genes, Experiments, and ExpressionLevels.
+
+1. 
+Database Setup:
+•  A new database named BioinformaticsDB was created to store the data.
+
+•  The following SQL command was used to create the database:
+
+CREATE DATABASE BioinformaticsDB;
+USE BioinformaticsDB;
+
+1. 
+Table Creation:
+•Genes Table: This table stores information about genes, including a unique identifier, gene name, and organism.
+
+CREATE TABLE Genes (
+GeneID INT AUTO_INCREMENT PRIMARY KEY,
+GeneName VARCHAR(100) NOT NULL,
+Organism VARCHAR(50)
+);
+
+•  Experiments Table: This table records details of experiments, including a unique identifier, experiment name, and date.
+
+CREATE TABLE Experiments (
+ExperimentID INT AUTO_INCREMENT PRIMARY KEY,
+ExperimentName VARCHAR(100) NOT NULL,
+Date DATE
+);
+
+•  ExpressionLevels Table: This table captures gene expression levels, linking genes and experiments through foreign keys.
+
+CREATE TABLE ExpressionLevels (
+ExpressionID INT AUTO_INCREMENT PRIMARY KEY,
+GeneID INT,
+ExperimentID INT,
+ExpressionLevel DECIMAL(5, 2),
+Significance DECIMAL(5, 2),
+FOREIGN KEY (GeneID) REFERENCES Genes(GeneID),
+FOREIGN KEY (ExperimentID) REFERENCES Experiments(ExperimentID)
+);
+
+Data Insertion
+Sample data was inserted into the tables to facilitate analysis. The following SQL commands were used:
+
+1. 
+Genes Table:
+
+INSERT INTO Genes (GeneName, Organism) VALUES
+('BRCA1', 'Human'),
+('TP53', 'Human'),
+('CFTR', 'Human');
+
+1. 
+Experiments Table:
+
+INSERT INTO Experiments (ExperimentName, Date) VALUES
+('Cancer Study 1', '2024-01-15'),
+('Cancer Study 2', '2024-02-20'),
+('Genetic Disorder Study', '2024-03-10');
+
+1. 
+ExpressionLevels Table:
+
+INSERT INTO ExpressionLevels (GeneID, ExperimentID, ExpressionLevel, Significance) VALUES
+(1, 1, 2.5, 0.01),
+(1, 2, 3.0, 0.05),
+(2, 1, 1.8, 0.02),
+(2, 3, 2.2, 0.03),
+(3, 2, 1.5, 0.04),
+(3, 3, 2.0, 0.01);
+
+Data Analysis
+Several SQL queries were executed to analyze the gene expression data:
+
+1. 
+List All Genes with Their Expression Levels in Each Experiment:
+
+SELECT Genes.GeneName, Experiments.ExperimentName, ExpressionLevels.ExpressionLevel, ExpressionLevels.Significance
+FROM ExpressionLevels
+JOIN Genes ON ExpressionLevels.GeneID = Genes.GeneID
+JOIN Experiments ON ExpressionLevels.ExperimentID = Experiments.ExperimentID;
+
+1. 
+Find Genes with Significant Expression Levels (p-value < 0.05):
+
+SELECT Genes.GeneName, Experiments.ExperimentName, ExpressionLevels.ExpressionLevel, ExpressionLevels.Significance
+FROM ExpressionLevels
+JOIN Genes ON ExpressionLevels.GeneID = Genes.GeneID
+JOIN Experiments ON ExpressionLevels.ExperimentID = Experiments.ExperimentID
+WHERE ExpressionLevels.Significance < 0.05;
+
+1. 
+Get the Average Expression Level of Each Gene Across All Experiments:
+
+SELECT Genes.GeneName, AVG(ExpressionLevels.ExpressionLevel) AS AverageExpression
+FROM ExpressionLevels
+JOIN Genes ON ExpressionLevels.GeneID = Genes.GeneID
+GROUP BY Genes.GeneName;
+
+1. 
+Count the Number of Experiments Each Gene is Involved In:
+
+SELECT Genes.GeneName, COUNT(ExpressionLevels.ExperimentID) AS NumberOfExperiments
+FROM ExpressionLevels
+JOIN Genes ON ExpressionLevels.GeneID = Genes.GeneID
+GROUP BY Genes.GeneName;
+
+Verification
+To ensure the integrity of the database and the accuracy of the data, the following verification steps were performed:
+
+1. 
+Verify Table Creation:
+
+SHOW TABLES;
+DESCRIBE Genes;
+DESCRIBE Experiments;
+DESCRIBE ExpressionLevels;
+
+1. 
+Verify Data Insertion:
+
+SELECT * FROM Genes;
+SELECT * FROM Experiments;
+SELECT * FROM ExpressionLevels;
+
+This methodology provides a structured approach to managing and analyzing gene expression data, facilitating reproducibility and transparency in bioinformatics research.
