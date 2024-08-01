@@ -1,0 +1,117 @@
+THis is the online platform where you can practice MySQL
+https://onecompiler.com/mysql/42mu7ykza
+
+
+
+There are several important MySQL commands that you should be familiar with to demonstrate proficiency in database management, especially during an interview. Here are some of the most crucial ones:
+
+Basic Commands
+1. 
+Connecting to MySQL:
+
+mysql -u username -p
+
+1. 
+Creating a Database:
+
+CREATE DATABASE database_name;
+
+1. 
+Using a Database:
+
+USE database_name;
+
+1. 
+Creating a Table:
+
+CREATE TABLE table_name (
+column1 datatype,
+column2 datatype,
+...
+);
+
+1. 
+Inserting Data:
+
+INSERT INTO table_name (column1, column2, ...)
+VALUES (value1, value2, ...);
+
+1. 
+Selecting Data:
+
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition;
+
+Advanced Commands
+1. 
+Updating Data:
+
+UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition;
+
+1. 
+Deleting Data:
+
+DELETE FROM table_name
+WHERE condition;
+
+1. 
+Joining Tables:
+
+SELECT columns
+FROM table1
+JOIN table2 ON table1.column = table2.column;
+
+1. 
+Creating Indexes:
+
+CREATE INDEX index_name
+ON table_name (column1, column2, ...);
+
+1. 
+Creating Views:
+
+CREATE VIEW view_name AS
+SELECT columns
+FROM table_name
+WHERE condition;
+
+Administrative Commands
+1. 
+Granting Privileges:
+
+GRANT ALL PRIVILEGES ON database_name.* TO 'username'@'host';
+FLUSH PRIVILEGES;
+
+1. 
+Backing Up a Database:
+
+mysqldump -u username -p database_name > backup.sql
+
+1. 
+Restoring a Database:
+
+mysql -u username -p database_name < backup.sql
+
+Performance and Optimization
+1. 
+Analyzing and Optimizing Tables:
+
+ANALYZE TABLE table_name;
+OPTIMIZE TABLE table_name;
+
+1. 
+Explaining Query Execution:
+
+EXPLAIN SELECT * FROM table_name WHERE condition;
+
+Important Concepts
+•  Normalization: Understanding how to design normalized databases to reduce redundancy.
+
+•  Transactions: Using BEGIN, COMMIT, and ROLLBACK to manage transactions.
+
+•  Stored Procedures and Functions: Writing reusable SQL code blocks.
+
+•  Triggers: Automating actions based on database events.
